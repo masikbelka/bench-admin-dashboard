@@ -1,0 +1,109 @@
+
+<div *ngIf="employee">
+    <h2><span jhiTranslate="benchAdminConsoleApp.employee.detail.title">Employee</span> {{employee.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.upsaId">Upsa Id</span></dt>
+        <dd>
+            <span>{{employee.upsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.email">Email</span></dt>
+        <dd>
+            <span>{{employee.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.fullName">Full Name</span></dt>
+        <dd>
+            <span>{{employee.fullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.comment">Comment</span></dt>
+        <dd>
+            <span>{{employee.comment}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.managerFullName">Manager Full Name</span></dt>
+        <dd>
+            <span>{{employee.managerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.managerId">Manager Id</span></dt>
+        <dd>
+            <span>{{employee.managerId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.active">Active</span></dt>
+        <dd>
+            <span>{{employee.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.hireDate">Hire Date</span></dt>
+        <dd>
+            <span>{{employee.hireDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.availableFrom">Available From</span></dt>
+        <dd>
+            <span>{{employee.availableFrom | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.gender">Gender</span></dt>
+        <dd>
+            <span jhiTranslate="{{'benchAdminConsoleApp.Gender.' + employee.gender}}">{{employee.gender}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.probation">Probation</span></dt>
+        <dd>
+            <div *ngIf="employee.probation">
+                <a [routerLink]="['/probation-status', employee.probation?.id]">{{employee.probation?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.location">Location</span></dt>
+        <dd>
+            <div *ngIf="employee.location">
+                <a [routerLink]="['/location', employee.location?.id]">{{employee.location?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.primarySkill">Primary Skill</span></dt>
+        <dd>
+            <div *ngIf="employee.primarySkill">
+                <a [routerLink]="['/primary-skill', employee.primarySkill?.id]">{{employee.primarySkill?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.title">Title</span></dt>
+        <dd>
+            <div *ngIf="employee.title">
+                <a [routerLink]="['/title', employee.title?.id]">{{employee.title?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.englishLevel">English Level</span></dt>
+        <dd>
+            <div *ngIf="employee.englishLevel">
+                <a [routerLink]="['/language-level', employee.englishLevel?.id]">{{employee.englishLevel?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.productionStatus">Production Status</span></dt>
+        <dd>
+            <div *ngIf="employee.productionStatus">
+                <a [routerLink]="['/production-status', employee.productionStatus?.id]">{{employee.productionStatus?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.jobFunction">Job Function</span></dt>
+        <dd>
+            <div *ngIf="employee.jobFunction">
+                <a [routerLink]="['/job-function', employee.jobFunction?.id]">{{employee.jobFunction?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.employee.unit">Unit</span></dt>
+        <dd>
+            <div *ngIf="employee.unit">
+                <a [routerLink]="['/unit', employee.unit?.id]">{{employee.unit?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'employee/'+ employee.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

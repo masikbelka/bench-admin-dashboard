@@ -1,0 +1,29 @@
+
+<div *ngIf="billingType">
+    <h2><span jhiTranslate="benchAdminConsoleApp.billingType.detail.title">Billing Type</span> {{billingType.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.billingType.upsaId">Upsa Id</span></dt>
+        <dd>
+            <span>{{billingType.upsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.billingType.name">Name</span></dt>
+        <dd>
+            <span>{{billingType.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'billing-type/'+ billingType.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

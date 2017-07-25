@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPredictionDetailsLabel" jhiTranslate="benchAdminConsoleApp.predictionDetails.home.createOrEditLabel">Create or edit a Prediction Details</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!predictionDetails.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="predictionDetails.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.predictionDetails.date" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="predictionDetails.date"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.predictionDetails.assignedToProject" for="field_assignedToProject">Assigned To Project</label>
+            <input type="checkbox" class="form-control" name="assignedToProject" id="field_assignedToProject"
+                [(ngModel)]="predictionDetails.assignedToProject"  />
+            <div [hidden]="!(editForm.controls.assignedToProject?.dirty && editForm.controls.assignedToProject?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.assignedToProject?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.predictionDetails.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active"
+                [(ngModel)]="predictionDetails.active"  />
+            <div [hidden]="!(editForm.controls.active?.dirty && editForm.controls.active?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.active?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.predictionDetails.removedFromProject" for="field_removedFromProject">Removed From Project</label>
+            <input type="checkbox" class="form-control" name="removedFromProject" id="field_removedFromProject"
+                [(ngModel)]="predictionDetails.removedFromProject"  />
+            <div [hidden]="!(editForm.controls.removedFromProject?.dirty && editForm.controls.removedFromProject?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.removedFromProject?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.predictionDetails.maternityLeave" for="field_maternityLeave">Maternity Leave</label>
+            <input type="checkbox" class="form-control" name="maternityLeave" id="field_maternityLeave"
+                [(ngModel)]="predictionDetails.maternityLeave"  />
+            <div [hidden]="!(editForm.controls.maternityLeave?.dirty && editForm.controls.maternityLeave?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.maternityLeave?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.predictionDetails.project" for="field_project">Project</label>
+            <select class="form-control" id="field_project" name="project" [(ngModel)]="predictionDetails.project">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="projectOption.id === predictionDetails.project?.id ? predictionDetails.project : projectOption" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,35 @@
+
+<div *ngIf="primarySkill">
+    <h2><span jhiTranslate="benchAdminConsoleApp.primarySkill.detail.title">Primary Skill</span> {{primarySkill.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.primarySkill.upsaId">Upsa Id</span></dt>
+        <dd>
+            <span>{{primarySkill.upsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.primarySkill.name">Name</span></dt>
+        <dd>
+            <span>{{primarySkill.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.primarySkill.skillCategory">Skill Category</span></dt>
+        <dd>
+            <div *ngIf="primarySkill.skillCategory">
+                <a [routerLink]="['/skill-category', primarySkill.skillCategory?.id]">{{primarySkill.skillCategory?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'primary-skill/'+ primarySkill.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

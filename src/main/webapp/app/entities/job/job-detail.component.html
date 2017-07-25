@@ -1,0 +1,53 @@
+
+<div *ngIf="job">
+    <h2><span jhiTranslate="benchAdminConsoleApp.job.detail.title">Job</span> {{job.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.code">Code</span></dt>
+        <dd>
+            <span>{{job.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.enabled">Enabled</span></dt>
+        <dd>
+            <span>{{job.enabled}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.sendEmail">Send Email</span></dt>
+        <dd>
+            <span>{{job.sendEmail}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.email">Email</span></dt>
+        <dd>
+            <span>{{job.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.lastStartTime">Last Start Time</span></dt>
+        <dd>
+            <span>{{job.lastStartTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.lastEndTime">Last End Time</span></dt>
+        <dd>
+            <span>{{job.lastEndTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.lastResult">Last Result</span></dt>
+        <dd>
+            <span jhiTranslate="{{'benchAdminConsoleApp.JobResultStatus.' + job.lastResult}}">{{job.lastResult}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.job.lastUser">Last User</span></dt>
+        <dd>
+            <span>{{job.lastUser}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job/'+ job.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,63 @@
+
+<div *ngIf="opportunityPosition">
+    <h2><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.detail.title">Opportunity Position</span> {{opportunityPosition.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.createdTime">Created Time</span></dt>
+        <dd>
+            <span>{{opportunityPosition.createdTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeUpsaId">Employee Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunityPosition.employeeUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeFullName">Employee Full Name</span></dt>
+        <dd>
+            <span>{{opportunityPosition.employeeFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerUpsaId">Owner Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunityPosition.ownerUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerFullName">Owner Full Name</span></dt>
+        <dd>
+            <span>{{opportunityPosition.ownerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'benchAdminConsoleApp.PositionStatus.' + opportunityPosition.status}}">{{opportunityPosition.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.opportunity">Opportunity</span></dt>
+        <dd>
+            <div *ngIf="opportunityPosition.opportunity">
+                <a [routerLink]="['/opportunity', opportunityPosition.opportunity?.id]">{{opportunityPosition.opportunity?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.role">Role</span></dt>
+        <dd>
+            <div *ngIf="opportunityPosition.role">
+                <a [routerLink]="['/project-role', opportunityPosition.role?.id]">{{opportunityPosition.role?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employee">Employee</span></dt>
+        <dd>
+            <div *ngIf="opportunityPosition.employee">
+                <a [routerLink]="['/employee', opportunityPosition.employee?.id]">{{opportunityPosition.employee?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'opportunity-position/'+ opportunityPosition.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

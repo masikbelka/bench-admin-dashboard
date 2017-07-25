@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.opportunityPosition.home.title">Opportunity Positions</span>
+        <button class="btn btn-primary float-right create-opportunity-position" [routerLink]="['/', { outlets: { popup: ['opportunity-position-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.opportunityPosition.home.createLabel">
+            Create new Opportunity Position
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="opportunityPositions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdTime"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.createdTime">Created Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employeeUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeUpsaId">Employee Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employeeFullName"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeFullName">Employee Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerUpsaId">Owner Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerFullName"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerFullName">Owner Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="opportunity.id"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.opportunity">Opportunity</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="role.id"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.role">Role</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employee.id"><span jhiTranslate="benchAdminConsoleApp.opportunityPosition.employee">Employee</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let opportunityPosition of opportunityPositions ;trackBy: trackId">
+                <td><a [routerLink]="['../opportunity-position', opportunityPosition.id ]">{{opportunityPosition.id}}</a></td>
+                <td>{{opportunityPosition.createdTime | date:'mediumDate'}}</td>
+                <td>{{opportunityPosition.employeeUpsaId}}</td>
+                <td>{{opportunityPosition.employeeFullName}}</td>
+                <td>{{opportunityPosition.ownerUpsaId}}</td>
+                <td>{{opportunityPosition.ownerFullName}}</td>
+                <td jhiTranslate="{{'benchAdminConsoleApp.PositionStatus.' + opportunityPosition.status}}">{{opportunityPosition.status}}</td>
+                <td>
+                    <div *ngIf="opportunityPosition.opportunity">
+                        <a [routerLink]="['../opportunity', opportunityPosition.opportunity?.id ]" >{{opportunityPosition.opportunity?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="opportunityPosition.role">
+                        <a [routerLink]="['../project-role', opportunityPosition.role?.id ]" >{{opportunityPosition.role?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="opportunityPosition.employee">
+                        <a [routerLink]="['../employee', opportunityPosition.employee?.id ]" >{{opportunityPosition.employee?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../opportunity-position', opportunityPosition.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'opportunity-position/'+ opportunityPosition.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'opportunity-position/'+ opportunityPosition.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEmployeeLabel" jhiTranslate="benchAdminConsoleApp.employee.home.createOrEditLabel">Create or edit a Employee</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!employee.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="employee.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.upsaId" for="field_upsaId">Upsa Id</label>
+            <input type="text" class="form-control" name="upsaId" id="field_upsaId"
+                [(ngModel)]="employee.upsaId" required />
+            <div [hidden]="!(editForm.controls.upsaId?.dirty && editForm.controls.upsaId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.upsaId?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="employee.email" required />
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.fullName" for="field_fullName">Full Name</label>
+            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                [(ngModel)]="employee.fullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.comment" for="field_comment">Comment</label>
+            <input type="text" class="form-control" name="comment" id="field_comment"
+                [(ngModel)]="employee.comment" maxlength="255" />
+            <div [hidden]="!(editForm.controls.comment?.dirty && editForm.controls.comment?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.comment?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.managerFullName" for="field_managerFullName">Manager Full Name</label>
+            <input type="text" class="form-control" name="managerFullName" id="field_managerFullName"
+                [(ngModel)]="employee.managerFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.managerId" for="field_managerId">Manager Id</label>
+            <input type="text" class="form-control" name="managerId" id="field_managerId"
+                [(ngModel)]="employee.managerId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active"
+                [(ngModel)]="employee.active"  />
+            <div [hidden]="!(editForm.controls.active?.dirty && editForm.controls.active?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.active?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.hireDate" for="field_hireDate">Hire Date</label>
+            <div class="d-flex">
+                <input id="field_hireDate" type="datetime-local" class="form-control" name="hireDate" [(ngModel)]="employee.hireDate"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.availableFrom" for="field_availableFrom">Available From</label>
+            <div class="d-flex">
+                <input id="field_availableFrom" type="datetime-local" class="form-control" name="availableFrom" [(ngModel)]="employee.availableFrom"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.employee.gender" for="field_gender">Gender</label>
+            <select class="form-control" name="gender" [(ngModel)]="employee.gender" id="field_gender" >
+                <option value="MALE" jhiTranslate="benchAdminConsoleApp.Gender.MALE">MALE</option>
+                <option value="FEMALE" jhiTranslate="benchAdminConsoleApp.Gender.FEMALE">FEMALE</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.probation" for="field_probation">Probation</label>
+            <select class="form-control" id="field_probation" name="probation" [(ngModel)]="employee.probation">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="probationStatusOption.id === employee.probation?.id ? employee.probation : probationStatusOption" *ngFor="let probationStatusOption of probations; trackBy: trackProbationStatusById">{{probationStatusOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.location" for="field_location">Location</label>
+            <select class="form-control" id="field_location" name="location" [(ngModel)]="employee.location">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="locationOption.id === employee.location?.id ? employee.location : locationOption" *ngFor="let locationOption of locations; trackBy: trackLocationById">{{locationOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.primarySkill" for="field_primarySkill">Primary Skill</label>
+            <select class="form-control" id="field_primarySkill" name="primarySkill" [(ngModel)]="employee.primarySkill">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="primarySkillOption.id === employee.primarySkill?.id ? employee.primarySkill : primarySkillOption" *ngFor="let primarySkillOption of primaryskills; trackBy: trackPrimarySkillById">{{primarySkillOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.title" for="field_title">Title</label>
+            <select class="form-control" id="field_title" name="title" [(ngModel)]="employee.title">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="titleOption.id === employee.title?.id ? employee.title : titleOption" *ngFor="let titleOption of titles; trackBy: trackTitleById">{{titleOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.englishLevel" for="field_englishLevel">English Level</label>
+            <select class="form-control" id="field_englishLevel" name="englishLevel" [(ngModel)]="employee.englishLevel">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="languageLevelOption.id === employee.englishLevel?.id ? employee.englishLevel : languageLevelOption" *ngFor="let languageLevelOption of englishlevels; trackBy: trackLanguageLevelById">{{languageLevelOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.productionStatus" for="field_productionStatus">Production Status</label>
+            <select class="form-control" id="field_productionStatus" name="productionStatus" [(ngModel)]="employee.productionStatus">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="productionStatusOption.id === employee.productionStatus?.id ? employee.productionStatus : productionStatusOption" *ngFor="let productionStatusOption of productionstatuses; trackBy: trackProductionStatusById">{{productionStatusOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.jobFunction" for="field_jobFunction">Job Function</label>
+            <select class="form-control" id="field_jobFunction" name="jobFunction" [(ngModel)]="employee.jobFunction">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="jobFunctionOption.id === employee.jobFunction?.id ? employee.jobFunction : jobFunctionOption" *ngFor="let jobFunctionOption of jobfunctions; trackBy: trackJobFunctionById">{{jobFunctionOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.employee.unit" for="field_unit">Unit</label>
+            <select class="form-control" id="field_unit" name="unit" [(ngModel)]="employee.unit">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="unitOption.id === employee.unit?.id ? employee.unit : unitOption" *ngFor="let unitOption of units; trackBy: trackUnitById">{{unitOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

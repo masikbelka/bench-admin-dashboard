@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.jobExecution.home.title">Job Executions</span>
+        <button class="btn btn-primary float-right create-job-execution" [routerLink]="['/', { outlets: { popup: ['job-execution-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.jobExecution.home.createLabel">
+            Create new Job Execution
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="jobExecutions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startTime"><span jhiTranslate="benchAdminConsoleApp.jobExecution.startTime">Start Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endTime"><span jhiTranslate="benchAdminConsoleApp.jobExecution.endTime">End Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="result"><span jhiTranslate="benchAdminConsoleApp.jobExecution.result">Result</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="user"><span jhiTranslate="benchAdminConsoleApp.jobExecution.user">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="job.id"><span jhiTranslate="benchAdminConsoleApp.jobExecution.job">Job</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let jobExecution of jobExecutions ;trackBy: trackId">
+                <td><a [routerLink]="['../job-execution', jobExecution.id ]">{{jobExecution.id}}</a></td>
+                <td>{{jobExecution.startTime | date:'mediumDate'}}</td>
+                <td>{{jobExecution.endTime | date:'mediumDate'}}</td>
+                <td jhiTranslate="{{'benchAdminConsoleApp.JobResultStatus.' + jobExecution.result}}">{{jobExecution.result}}</td>
+                <td>{{jobExecution.user}}</td>
+                <td>
+                    <div *ngIf="jobExecution.job">
+                        <a [routerLink]="['../job', jobExecution.job?.id ]" >{{jobExecution.job?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../job-execution', jobExecution.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'job-execution/'+ jobExecution.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'job-execution/'+ jobExecution.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

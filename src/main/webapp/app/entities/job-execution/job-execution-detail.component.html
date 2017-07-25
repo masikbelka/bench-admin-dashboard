@@ -1,0 +1,43 @@
+
+<div *ngIf="jobExecution">
+    <h2><span jhiTranslate="benchAdminConsoleApp.jobExecution.detail.title">Job Execution</span> {{jobExecution.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobExecution.startTime">Start Time</span></dt>
+        <dd>
+            <span>{{jobExecution.startTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobExecution.endTime">End Time</span></dt>
+        <dd>
+            <span>{{jobExecution.endTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobExecution.result">Result</span></dt>
+        <dd>
+            <span jhiTranslate="{{'benchAdminConsoleApp.JobResultStatus.' + jobExecution.result}}">{{jobExecution.result}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobExecution.user">User</span></dt>
+        <dd>
+            <span>{{jobExecution.user}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobExecution.job">Job</span></dt>
+        <dd>
+            <div *ngIf="jobExecution.job">
+                <a [routerLink]="['/job', jobExecution.job?.id]">{{jobExecution.job?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job-execution/'+ jobExecution.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,9 @@
+{
+    "benchAdminConsoleApp": {
+        "JobResultStatus" : {
+            "null": "",
+            "SUCCESS": "SUCCESS",
+            "ERROR": "ERROR"
+        }
+    }
+}

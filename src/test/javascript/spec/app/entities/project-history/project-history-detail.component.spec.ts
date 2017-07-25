@@ -1,0 +1,62 @@
+/* tslint:disable max-line-length */
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+import { BenchAdminConsoleTestModule } from '../../../test.module';
+import { MockActivatedRoute } from '../../../helpers/mock-route.service';
+import { ProjectHistoryDetailComponent } from '../../../../../../main/webapp/app/entities/project-history/project-history-detail.component';
+import { ProjectHistoryService } from '../../../../../../main/webapp/app/entities/project-history/project-history.service';
+import { ProjectHistory } from '../../../../../../main/webapp/app/entities/project-history/project-history.model';
+
+describe('Component Tests', () => {
+
+    describe('ProjectHistory Management Detail Component', () => {
+        let comp: ProjectHistoryDetailComponent;
+        let fixture: ComponentFixture<ProjectHistoryDetailComponent>;
+        let service: ProjectHistoryService;
+
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [BenchAdminConsoleTestModule],
+                declarations: [ProjectHistoryDetailComponent],
+                providers: [
+                    JhiDateUtils,
+                    JhiDataUtils,
+                    DatePipe,
+                    {
+                        provide: ActivatedRoute,
+                        useValue: new MockActivatedRoute({id: 123})
+                    },
+                    ProjectHistoryService,
+                    JhiEventManager
+                ]
+            }).overrideTemplate(ProjectHistoryDetailComponent, '')
+            .compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ProjectHistoryDetailComponent);
+            comp = fixture.componentInstance;
+            service = fixture.debugElement.injector.get(ProjectHistoryService);
+        });
+
+        describe('OnInit', () => {
+            it('Should call load all on init', () => {
+            // GIVEN
+
+            spyOn(service, 'find').and.returnValue(Observable.of(new ProjectHistory(10)));
+
+            // WHEN
+            comp.ngOnInit();
+
+            // THEN
+            expect(service.find).toHaveBeenCalledWith(123);
+            expect(comp.projectHistory).toEqual(jasmine.objectContaining({id: 10}));
+            });
+        });
+    });
+
+});

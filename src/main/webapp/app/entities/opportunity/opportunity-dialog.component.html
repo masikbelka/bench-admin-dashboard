@@ -1,0 +1,149 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOpportunityLabel" jhiTranslate="benchAdminConsoleApp.opportunity.home.createOrEditLabel">Create or edit a Opportunity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!opportunity.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="opportunity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.staffingId" for="field_staffingId">Staffing Id</label>
+            <input type="text" class="form-control" name="staffingId" id="field_staffingId"
+                [(ngModel)]="opportunity.staffingId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="opportunity.name"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.ownerUpsaId" for="field_ownerUpsaId">Owner Upsa Id</label>
+            <input type="text" class="form-control" name="ownerUpsaId" id="field_ownerUpsaId"
+                [(ngModel)]="opportunity.ownerUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.ownerFullName" for="field_ownerFullName">Owner Full Name</label>
+            <input type="text" class="form-control" name="ownerFullName" id="field_ownerFullName"
+                [(ngModel)]="opportunity.ownerFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.startDate" for="field_startDate">Start Date</label>
+            <div class="input-group">
+                <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker  #startDateDp="ngbDatepicker" [(ngModel)]="opportunity.startDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="startDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.endDate" for="field_endDate">End Date</label>
+            <div class="input-group">
+                <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker  #endDateDp="ngbDatepicker" [(ngModel)]="opportunity.endDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="endDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="opportunity.status" id="field_status" >
+                <option value="CREATED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.CREATED">CREATED</option>
+                <option value="CLOSED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.CLOSED">CLOSED</option>
+                <option value="ACTIVE" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.ACTIVE">ACTIVE</option>
+                <option value="ON_HOLD" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.ON_HOLD">ON_HOLD</option>
+                <option value="CANCELLED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.CANCELLED">CANCELLED</option>
+                <option value="IN_PROGRESS" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.IN_PROGRESS">IN_PROGRESS</option>
+                <option value="APPROVED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.APPROVED">APPROVED</option>
+                <option value="OPEN" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.OPEN">OPEN</option>
+                <option value="DRAFT" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.DRAFT">DRAFT</option>
+                <option value="SUBMITTED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.SUBMITTED">SUBMITTED</option>
+                <option value="REJECTED" jhiTranslate="benchAdminConsoleApp.OpportunityStatus.REJECTED">REJECTED</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="opportunity.description" maxlength="1000" />
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 1000 }">
+                   This field cannot be longer than 1000 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorUpsaId" for="field_staffingCoordinatiorUpsaId">Staffing Coordinatior Upsa Id</label>
+            <input type="text" class="form-control" name="staffingCoordinatiorUpsaId" id="field_staffingCoordinatiorUpsaId"
+                [(ngModel)]="opportunity.staffingCoordinatiorUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorFullName" for="field_staffingCoordinatiorFullName">Staffing Coordinatior Full Name</label>
+            <input type="text" class="form-control" name="staffingCoordinatiorFullName" id="field_staffingCoordinatiorFullName"
+                [(ngModel)]="opportunity.staffingCoordinatiorFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerUpsaId" for="field_responsibleManagerUpsaId">Responsible Manager Upsa Id</label>
+            <input type="text" class="form-control" name="responsibleManagerUpsaId" id="field_responsibleManagerUpsaId"
+                [(ngModel)]="opportunity.responsibleManagerUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerFullName" for="field_responsibleManagerFullName">Responsible Manager Full Name</label>
+            <input type="text" class="form-control" name="responsibleManagerFullName" id="field_responsibleManagerFullName"
+                [(ngModel)]="opportunity.responsibleManagerFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.supervisorUpsaId" for="field_supervisorUpsaId">Supervisor Upsa Id</label>
+            <input type="text" class="form-control" name="supervisorUpsaId" id="field_supervisorUpsaId"
+                [(ngModel)]="opportunity.supervisorUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.supervisorFullName" for="field_supervisorFullName">Supervisor Full Name</label>
+            <input type="text" class="form-control" name="supervisorFullName" id="field_supervisorFullName"
+                [(ngModel)]="opportunity.supervisorFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerUpsaId" for="field_deliveryManagerUpsaId">Delivery Manager Upsa Id</label>
+            <input type="text" class="form-control" name="deliveryManagerUpsaId" id="field_deliveryManagerUpsaId"
+                [(ngModel)]="opportunity.deliveryManagerUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerFullName" for="field_deliveryManagerFullName">Delivery Manager Full Name</label>
+            <input type="text" class="form-control" name="deliveryManagerFullName" id="field_deliveryManagerFullName"
+                [(ngModel)]="opportunity.deliveryManagerFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerUpsaId" for="field_accountManagerUpsaId">Account Manager Upsa Id</label>
+            <input type="text" class="form-control" name="accountManagerUpsaId" id="field_accountManagerUpsaId"
+                [(ngModel)]="opportunity.accountManagerUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerFullName" for="field_accountManagerFullName">Account Manager Full Name</label>
+            <input type="text" class="form-control" name="accountManagerFullName" id="field_accountManagerFullName"
+                [(ngModel)]="opportunity.accountManagerFullName"  />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.opportunity.type" for="field_type">Type</label>
+            <select class="form-control" id="field_type" name="type" [(ngModel)]="opportunity.type">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="opportunityTypeOption.id === opportunity.type?.id ? opportunity.type : opportunityTypeOption" *ngFor="let opportunityTypeOption of types; trackBy: trackOpportunityTypeById">{{opportunityTypeOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

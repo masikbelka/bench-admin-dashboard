@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.benchHistory.home.title">Bench Histories</span>
+        <button class="btn btn-primary float-right create-bench-history" [routerLink]="['/', { outlets: { popup: ['bench-history-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.benchHistory.home.createLabel">
+            Create new Bench History
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="benchHistories">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdTime"><span jhiTranslate="benchAdminConsoleApp.benchHistory.createdTime">Created Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bench"><span jhiTranslate="benchAdminConsoleApp.benchHistory.bench">Bench</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="managerId"><span jhiTranslate="benchAdminConsoleApp.benchHistory.managerId">Manager Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="validTo"><span jhiTranslate="benchAdminConsoleApp.benchHistory.validTo">Valid To</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdByUpsaId"><span jhiTranslate="benchAdminConsoleApp.benchHistory.createdByUpsaId">Created By Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="changedByUpsaId"><span jhiTranslate="benchAdminConsoleApp.benchHistory.changedByUpsaId">Changed By Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employee.id"><span jhiTranslate="benchAdminConsoleApp.benchHistory.employee">Employee</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let benchHistory of benchHistories ;trackBy: trackId">
+                <td><a [routerLink]="['../bench-history', benchHistory.id ]">{{benchHistory.id}}</a></td>
+                <td>{{benchHistory.createdTime | date:'medium'}}</td>
+                <td>{{benchHistory.bench}}</td>
+                <td>{{benchHistory.managerId}}</td>
+                <td>{{benchHistory.validTo | date:'medium'}}</td>
+                <td>{{benchHistory.createdByUpsaId}}</td>
+                <td>{{benchHistory.changedByUpsaId}}</td>
+                <td>
+                    <div *ngIf="benchHistory.employee">
+                        <a [routerLink]="['../employee', benchHistory.employee?.id ]" >{{benchHistory.employee?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../bench-history', benchHistory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bench-history/'+ benchHistory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bench-history/'+ benchHistory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

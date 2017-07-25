@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.projectHistory.home.title">Project Histories</span>
+        <button class="btn btn-primary float-right create-project-history" [routerLink]="['/', { outlets: { popup: ['project-history-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.projectHistory.home.createLabel">
+            Create new Project History
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="projectHistories">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span jhiTranslate="benchAdminConsoleApp.projectHistory.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workload"><span jhiTranslate="benchAdminConsoleApp.projectHistory.workload">Workload</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employee.id"><span jhiTranslate="benchAdminConsoleApp.projectHistory.employee">Employee</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="role.id"><span jhiTranslate="benchAdminConsoleApp.projectHistory.role">Role</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="project.id"><span jhiTranslate="benchAdminConsoleApp.projectHistory.project">Project</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let projectHistory of projectHistories ;trackBy: trackId">
+                <td><a [routerLink]="['../project-history', projectHistory.id ]">{{projectHistory.id}}</a></td>
+                <td>{{projectHistory.date | date:'mediumDate'}}</td>
+                <td>{{projectHistory.workload}}</td>
+                <td>
+                    <div *ngIf="projectHistory.employee">
+                        <a [routerLink]="['../employee', projectHistory.employee?.id ]" >{{projectHistory.employee?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="projectHistory.role">
+                        <a [routerLink]="['../project-role', projectHistory.role?.id ]" >{{projectHistory.role?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="projectHistory.project">
+                        <a [routerLink]="['../project', projectHistory.project?.id ]" >{{projectHistory.project?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../project-history', projectHistory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'project-history/'+ projectHistory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'project-history/'+ projectHistory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

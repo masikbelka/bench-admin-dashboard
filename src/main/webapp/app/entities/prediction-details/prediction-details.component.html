@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.predictionDetails.home.title">Prediction Details</span>
+        <button class="btn btn-primary float-right create-prediction-details" [routerLink]="['/', { outlets: { popup: ['prediction-details-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.predictionDetails.home.createLabel">
+            Create new Prediction Details
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="predictionDetails">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="assignedToProject"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.assignedToProject">Assigned To Project</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="active"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.active">Active</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="removedFromProject"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.removedFromProject">Removed From Project</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maternityLeave"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.maternityLeave">Maternity Leave</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="project.id"><span jhiTranslate="benchAdminConsoleApp.predictionDetails.project">Project</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let predictionDetails of predictionDetails ;trackBy: trackId">
+                <td><a [routerLink]="['../prediction-details', predictionDetails.id ]">{{predictionDetails.id}}</a></td>
+                <td>{{predictionDetails.date | date:'mediumDate'}}</td>
+                <td>{{predictionDetails.assignedToProject}}</td>
+                <td>{{predictionDetails.active}}</td>
+                <td>{{predictionDetails.removedFromProject}}</td>
+                <td>{{predictionDetails.maternityLeave}}</td>
+                <td>
+                    <div *ngIf="predictionDetails.project">
+                        <a [routerLink]="['../project', predictionDetails.project?.id ]" >{{predictionDetails.project?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../prediction-details', predictionDetails.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'prediction-details/'+ predictionDetails.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'prediction-details/'+ predictionDetails.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

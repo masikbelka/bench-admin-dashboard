@@ -1,0 +1,47 @@
+
+<div *ngIf="predictionDetails">
+    <h2><span jhiTranslate="benchAdminConsoleApp.predictionDetails.detail.title">Prediction Details</span> {{predictionDetails.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.date">Date</span></dt>
+        <dd>
+            <span>{{predictionDetails.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.assignedToProject">Assigned To Project</span></dt>
+        <dd>
+            <span>{{predictionDetails.assignedToProject}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.active">Active</span></dt>
+        <dd>
+            <span>{{predictionDetails.active}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.removedFromProject">Removed From Project</span></dt>
+        <dd>
+            <span>{{predictionDetails.removedFromProject}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.maternityLeave">Maternity Leave</span></dt>
+        <dd>
+            <span>{{predictionDetails.maternityLeave}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.predictionDetails.project">Project</span></dt>
+        <dd>
+            <div *ngIf="predictionDetails.project">
+                <a [routerLink]="['/project', predictionDetails.project?.id]">{{predictionDetails.project?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'prediction-details/'+ predictionDetails.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

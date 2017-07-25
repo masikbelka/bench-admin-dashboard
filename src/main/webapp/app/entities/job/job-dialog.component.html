@@ -1,0 +1,77 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myJobLabel" jhiTranslate="benchAdminConsoleApp.job.home.createOrEditLabel">Create or edit a Job</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!job.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="job.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.code" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="job.code"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.enabled" for="field_enabled">Enabled</label>
+            <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                [(ngModel)]="job.enabled"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.sendEmail" for="field_sendEmail">Send Email</label>
+            <input type="checkbox" class="form-control" name="sendEmail" id="field_sendEmail"
+                [(ngModel)]="job.sendEmail"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="job.email"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.lastStartTime" for="field_lastStartTime">Last Start Time</label>
+            <div class="input-group">
+                <input id="field_lastStartTime" type="text" class="form-control" name="lastStartTime" ngbDatepicker  #lastStartTimeDp="ngbDatepicker" [(ngModel)]="job.lastStartTime"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="lastStartTimeDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.lastEndTime" for="field_lastEndTime">Last End Time</label>
+            <div class="input-group">
+                <input id="field_lastEndTime" type="text" class="form-control" name="lastEndTime" ngbDatepicker  #lastEndTimeDp="ngbDatepicker" [(ngModel)]="job.lastEndTime"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="lastEndTimeDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.lastResult" for="field_lastResult">Last Result</label>
+            <select class="form-control" name="lastResult" [(ngModel)]="job.lastResult" id="field_lastResult" >
+                <option value="SUCCESS" jhiTranslate="benchAdminConsoleApp.JobResultStatus.SUCCESS">SUCCESS</option>
+                <option value="ERROR" jhiTranslate="benchAdminConsoleApp.JobResultStatus.ERROR">ERROR</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.job.lastUser" for="field_lastUser">Last User</label>
+            <input type="text" class="form-control" name="lastUser" id="field_lastUser"
+                [(ngModel)]="job.lastUser"  />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

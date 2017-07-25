@@ -1,0 +1,33 @@
+
+<div *ngIf="languageLevel">
+    <h2><span jhiTranslate="benchAdminConsoleApp.languageLevel.detail.title">Language Level</span> {{languageLevel.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.languageLevel.language">Language</span></dt>
+        <dd>
+            <span>{{languageLevel.language}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.languageLevel.speaking">Speaking</span></dt>
+        <dd>
+            <span>{{languageLevel.speaking}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.languageLevel.writing">Writing</span></dt>
+        <dd>
+            <span>{{languageLevel.writing}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'language-level/'+ languageLevel.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

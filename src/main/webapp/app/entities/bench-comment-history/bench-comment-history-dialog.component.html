@@ -1,0 +1,66 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBenchCommentHistoryLabel" jhiTranslate="benchAdminConsoleApp.benchCommentHistory.home.createOrEditLabel">Create or edit a Bench Comment History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!benchCommentHistory.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="benchCommentHistory.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.benchCommentHistory.changeTime" for="field_changeTime">Change Time</label>
+            <div class="d-flex">
+                <input id="field_changeTime" type="datetime-local" class="form-control" name="changeTime" [(ngModel)]="benchCommentHistory.changeTime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.changeTime?.dirty && editForm.controls.changeTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.changeTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.changeTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.benchCommentHistory.oldValue" for="field_oldValue">Old Value</label>
+            <input type="text" class="form-control" name="oldValue" id="field_oldValue"
+                [(ngModel)]="benchCommentHistory.oldValue"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.benchCommentHistory.newValue" for="field_newValue">New Value</label>
+            <input type="text" class="form-control" name="newValue" id="field_newValue"
+                [(ngModel)]="benchCommentHistory.newValue"  />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.benchCommentHistory.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="benchCommentHistory.user">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === benchCommentHistory.user?.id ? benchCommentHistory.user : employeeOption" *ngFor="let employeeOption of users; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.benchCommentHistory.employee" for="field_employee">Employee</label>
+            <select class="form-control" id="field_employee" name="employee" [(ngModel)]="benchCommentHistory.employee" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === benchCommentHistory.employee?.id ? benchCommentHistory.employee : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

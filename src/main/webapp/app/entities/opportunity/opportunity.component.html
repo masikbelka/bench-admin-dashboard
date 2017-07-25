@@ -1,0 +1,96 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.opportunity.home.title">Opportunities</span>
+        <button class="btn btn-primary float-right create-opportunity" [routerLink]="['/', { outlets: { popup: ['opportunity-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.opportunity.home.createLabel">
+            Create new Opportunity
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="opportunities">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="staffingId"><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingId">Staffing Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="benchAdminConsoleApp.opportunity.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.ownerUpsaId">Owner Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.ownerFullName">Owner Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startDate"><span jhiTranslate="benchAdminConsoleApp.opportunity.startDate">Start Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endDate"><span jhiTranslate="benchAdminConsoleApp.opportunity.endDate">End Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="benchAdminConsoleApp.opportunity.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="benchAdminConsoleApp.opportunity.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="staffingCoordinatiorUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorUpsaId">Staffing Coordinatior Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="staffingCoordinatiorFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorFullName">Staffing Coordinatior Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="responsibleManagerUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerUpsaId">Responsible Manager Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="responsibleManagerFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerFullName">Responsible Manager Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="supervisorUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.supervisorUpsaId">Supervisor Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="supervisorFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.supervisorFullName">Supervisor Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="deliveryManagerUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerUpsaId">Delivery Manager Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="deliveryManagerFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerFullName">Delivery Manager Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="accountManagerUpsaId"><span jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerUpsaId">Account Manager Upsa Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="accountManagerFullName"><span jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerFullName">Account Manager Full Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type.id"><span jhiTranslate="benchAdminConsoleApp.opportunity.type">Type</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let opportunity of opportunities ;trackBy: trackId">
+                <td><a [routerLink]="['../opportunity', opportunity.id ]">{{opportunity.id}}</a></td>
+                <td>{{opportunity.staffingId}}</td>
+                <td>{{opportunity.name}}</td>
+                <td>{{opportunity.ownerUpsaId}}</td>
+                <td>{{opportunity.ownerFullName}}</td>
+                <td>{{opportunity.startDate | date:'mediumDate'}}</td>
+                <td>{{opportunity.endDate | date:'mediumDate'}}</td>
+                <td jhiTranslate="{{'benchAdminConsoleApp.OpportunityStatus.' + opportunity.status}}">{{opportunity.status}}</td>
+                <td>{{opportunity.description}}</td>
+                <td>{{opportunity.staffingCoordinatiorUpsaId}}</td>
+                <td>{{opportunity.staffingCoordinatiorFullName}}</td>
+                <td>{{opportunity.responsibleManagerUpsaId}}</td>
+                <td>{{opportunity.responsibleManagerFullName}}</td>
+                <td>{{opportunity.supervisorUpsaId}}</td>
+                <td>{{opportunity.supervisorFullName}}</td>
+                <td>{{opportunity.deliveryManagerUpsaId}}</td>
+                <td>{{opportunity.deliveryManagerFullName}}</td>
+                <td>{{opportunity.accountManagerUpsaId}}</td>
+                <td>{{opportunity.accountManagerFullName}}</td>
+                <td>
+                    <div *ngIf="opportunity.type">
+                        <a [routerLink]="['../opportunity-type', opportunity.type?.id ]" >{{opportunity.type?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../opportunity', opportunity.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'opportunity/'+ opportunity.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'opportunity/'+ opportunity.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

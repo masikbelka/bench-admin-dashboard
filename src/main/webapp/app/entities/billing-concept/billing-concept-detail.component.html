@@ -1,0 +1,29 @@
+
+<div *ngIf="billingConcept">
+    <h2><span jhiTranslate="benchAdminConsoleApp.billingConcept.detail.title">Billing Concept</span> {{billingConcept.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.billingConcept.upsaId">Upsa Id</span></dt>
+        <dd>
+            <span>{{billingConcept.upsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.billingConcept.name">Name</span></dt>
+        <dd>
+            <span>{{billingConcept.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'billing-concept/'+ billingConcept.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

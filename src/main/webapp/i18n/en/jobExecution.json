@@ -1,0 +1,25 @@
+{
+    "benchAdminConsoleApp": {
+        "jobExecution" : {
+            "home": {
+                "title": "Job Executions",
+                "createLabel": "Create a new Job Execution",
+                "createOrEditLabel": "Create or edit a Job Execution"
+            },
+            "created": "A new Job Execution is created with identifier {{ param }}",
+            "updated": "A Job Execution is updated with identifier {{ param }}",
+            "deleted": "A Job Execution is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Job Execution {{ id }}?"
+            },
+            "detail": {
+                "title": "Job Execution"
+            },
+            "startTime": "Start Time",
+            "endTime": "End Time",
+            "result": "Result",
+            "user": "User",
+            "job": "Job"
+        }
+    }
+}

@@ -1,0 +1,99 @@
+
+<div *ngIf="opportunity">
+    <h2><span jhiTranslate="benchAdminConsoleApp.opportunity.detail.title">Opportunity</span> {{opportunity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingId">Staffing Id</span></dt>
+        <dd>
+            <span>{{opportunity.staffingId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.name">Name</span></dt>
+        <dd>
+            <span>{{opportunity.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.ownerUpsaId">Owner Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.ownerUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.ownerFullName">Owner Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.ownerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{opportunity.startDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.endDate">End Date</span></dt>
+        <dd>
+            <span>{{opportunity.endDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'benchAdminConsoleApp.OpportunityStatus.' + opportunity.status}}">{{opportunity.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.description">Description</span></dt>
+        <dd>
+            <span>{{opportunity.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorUpsaId">Staffing Coordinatior Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.staffingCoordinatiorUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.staffingCoordinatiorFullName">Staffing Coordinatior Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.staffingCoordinatiorFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerUpsaId">Responsible Manager Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.responsibleManagerUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.responsibleManagerFullName">Responsible Manager Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.responsibleManagerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.supervisorUpsaId">Supervisor Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.supervisorUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.supervisorFullName">Supervisor Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.supervisorFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerUpsaId">Delivery Manager Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.deliveryManagerUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.deliveryManagerFullName">Delivery Manager Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.deliveryManagerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerUpsaId">Account Manager Upsa Id</span></dt>
+        <dd>
+            <span>{{opportunity.accountManagerUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.accountManagerFullName">Account Manager Full Name</span></dt>
+        <dd>
+            <span>{{opportunity.accountManagerFullName}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.opportunity.type">Type</span></dt>
+        <dd>
+            <div *ngIf="opportunity.type">
+                <a [routerLink]="['/opportunity-type', opportunity.type?.id]">{{opportunity.type?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'opportunity/'+ opportunity.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

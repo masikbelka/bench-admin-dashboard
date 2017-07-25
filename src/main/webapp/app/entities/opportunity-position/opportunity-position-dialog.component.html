@@ -1,0 +1,110 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOpportunityPositionLabel" jhiTranslate="benchAdminConsoleApp.opportunityPosition.home.createOrEditLabel">Create or edit a Opportunity Position</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!opportunityPosition.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="opportunityPosition.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.createdTime" for="field_createdTime">Created Time</label>
+            <div class="input-group">
+                <input id="field_createdTime" type="text" class="form-control" name="createdTime" ngbDatepicker  #createdTimeDp="ngbDatepicker" [(ngModel)]="opportunityPosition.createdTime"
+                required/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="createdTimeDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdTime?.dirty && editForm.controls.createdTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeUpsaId" for="field_employeeUpsaId">Employee Upsa Id</label>
+            <input type="text" class="form-control" name="employeeUpsaId" id="field_employeeUpsaId"
+                [(ngModel)]="opportunityPosition.employeeUpsaId"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.employeeFullName" for="field_employeeFullName">Employee Full Name</label>
+            <input type="text" class="form-control" name="employeeFullName" id="field_employeeFullName"
+                [(ngModel)]="opportunityPosition.employeeFullName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerUpsaId" for="field_ownerUpsaId">Owner Upsa Id</label>
+            <input type="text" class="form-control" name="ownerUpsaId" id="field_ownerUpsaId"
+                [(ngModel)]="opportunityPosition.ownerUpsaId" required />
+            <div [hidden]="!(editForm.controls.ownerUpsaId?.dirty && editForm.controls.ownerUpsaId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ownerUpsaId?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.ownerFullName" for="field_ownerFullName">Owner Full Name</label>
+            <input type="text" class="form-control" name="ownerFullName" id="field_ownerFullName"
+                [(ngModel)]="opportunityPosition.ownerFullName" required />
+            <div [hidden]="!(editForm.controls.ownerFullName?.dirty && editForm.controls.ownerFullName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ownerFullName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="benchAdminConsoleApp.opportunityPosition.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="opportunityPosition.status" id="field_status" >
+                <option value="CREATED" jhiTranslate="benchAdminConsoleApp.PositionStatus.CREATED">CREATED</option>
+                <option value="CLOSED" jhiTranslate="benchAdminConsoleApp.PositionStatus.CLOSED">CLOSED</option>
+                <option value="ASSIGNED" jhiTranslate="benchAdminConsoleApp.PositionStatus.ASSIGNED">ASSIGNED</option>
+                <option value="ON_HOLD" jhiTranslate="benchAdminConsoleApp.PositionStatus.ON_HOLD">ON_HOLD</option>
+                <option value="CANCELLED" jhiTranslate="benchAdminConsoleApp.PositionStatus.CANCELLED">CANCELLED</option>
+                <option value="IN_PROGRESS" jhiTranslate="benchAdminConsoleApp.PositionStatus.IN_PROGRESS">IN_PROGRESS</option>
+                <option value="APPROVED" jhiTranslate="benchAdminConsoleApp.PositionStatus.APPROVED">APPROVED</option>
+                <option value="OPEN" jhiTranslate="benchAdminConsoleApp.PositionStatus.OPEN">OPEN</option>
+                <option value="TERMINATED" jhiTranslate="benchAdminConsoleApp.PositionStatus.TERMINATED">TERMINATED</option>
+                <option value="BOOKED" jhiTranslate="benchAdminConsoleApp.PositionStatus.BOOKED">BOOKED</option>
+                <option value="REJECTED" jhiTranslate="benchAdminConsoleApp.PositionStatus.REJECTED">REJECTED</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.opportunityPosition.opportunity" for="field_opportunity">Opportunity</label>
+            <select class="form-control" id="field_opportunity" name="opportunity" [(ngModel)]="opportunityPosition.opportunity" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="opportunityOption.id === opportunityPosition.opportunity?.id ? opportunityPosition.opportunity : opportunityOption" *ngFor="let opportunityOption of opportunities; trackBy: trackOpportunityById">{{opportunityOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.opportunityPosition.role" for="field_role">Role</label>
+            <select class="form-control" id="field_role" name="role" [(ngModel)]="opportunityPosition.role">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="projectRoleOption.id === opportunityPosition.role?.id ? opportunityPosition.role : projectRoleOption" *ngFor="let projectRoleOption of roles; trackBy: trackProjectRoleById">{{projectRoleOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="benchAdminConsoleApp.opportunityPosition.employee" for="field_employee">Employee</label>
+            <select class="form-control" id="field_employee" name="employee" [(ngModel)]="opportunityPosition.employee" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === opportunityPosition.employee?.id ? opportunityPosition.employee : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

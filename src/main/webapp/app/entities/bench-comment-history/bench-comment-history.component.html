@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.home.title">Bench Comment Histories</span>
+        <button class="btn btn-primary float-right create-bench-comment-history" [routerLink]="['/', { outlets: { popup: ['bench-comment-history-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="benchAdminConsoleApp.benchCommentHistory.home.createLabel">
+            Create new Bench Comment History
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="benchCommentHistories">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="changeTime"><span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.changeTime">Change Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="oldValue"><span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.oldValue">Old Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="newValue"><span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.newValue">New Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="user.id"><span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.user">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employee.id"><span jhiTranslate="benchAdminConsoleApp.benchCommentHistory.employee">Employee</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let benchCommentHistory of benchCommentHistories ;trackBy: trackId">
+                <td><a [routerLink]="['../bench-comment-history', benchCommentHistory.id ]">{{benchCommentHistory.id}}</a></td>
+                <td>{{benchCommentHistory.changeTime | date:'medium'}}</td>
+                <td>{{benchCommentHistory.oldValue}}</td>
+                <td>{{benchCommentHistory.newValue}}</td>
+                <td>
+                    <div *ngIf="benchCommentHistory.user">
+                        <a [routerLink]="['../employee', benchCommentHistory.user?.id ]" >{{benchCommentHistory.user?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="benchCommentHistory.employee">
+                        <a [routerLink]="['../employee', benchCommentHistory.employee?.id ]" >{{benchCommentHistory.employee?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../bench-comment-history', benchCommentHistory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bench-comment-history/'+ benchCommentHistory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bench-comment-history/'+ benchCommentHistory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

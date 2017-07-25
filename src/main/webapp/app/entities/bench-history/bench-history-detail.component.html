@@ -1,0 +1,51 @@
+
+<div *ngIf="benchHistory">
+    <h2><span jhiTranslate="benchAdminConsoleApp.benchHistory.detail.title">Bench History</span> {{benchHistory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.createdTime">Created Time</span></dt>
+        <dd>
+            <span>{{benchHistory.createdTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.bench">Bench</span></dt>
+        <dd>
+            <span>{{benchHistory.bench}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.managerId">Manager Id</span></dt>
+        <dd>
+            <span>{{benchHistory.managerId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.validTo">Valid To</span></dt>
+        <dd>
+            <span>{{benchHistory.validTo | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.createdByUpsaId">Created By Upsa Id</span></dt>
+        <dd>
+            <span>{{benchHistory.createdByUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.changedByUpsaId">Changed By Upsa Id</span></dt>
+        <dd>
+            <span>{{benchHistory.changedByUpsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchHistory.employee">Employee</span></dt>
+        <dd>
+            <div *ngIf="benchHistory.employee">
+                <a [routerLink]="['/employee', benchHistory.employee?.id]">{{benchHistory.employee?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'bench-history/'+ benchHistory.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

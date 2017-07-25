@@ -1,0 +1,33 @@
+
+<div *ngIf="jobFunction">
+    <h2><span jhiTranslate="benchAdminConsoleApp.jobFunction.detail.title">Job Function</span> {{jobFunction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobFunction.upsaId">Upsa Id</span></dt>
+        <dd>
+            <span>{{jobFunction.upsaId}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobFunction.name">Name</span></dt>
+        <dd>
+            <span>{{jobFunction.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.jobFunction.prefix">Prefix</span></dt>
+        <dd>
+            <span>{{jobFunction.prefix}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job-function/'+ jobFunction.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

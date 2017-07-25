@@ -1,0 +1,53 @@
+
+<div *ngIf="benchPredictions">
+    <h2><span jhiTranslate="benchAdminConsoleApp.benchPredictions.detail.title">Bench Predictions</span> {{benchPredictions.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.createdTime">Created Time</span></dt>
+        <dd>
+            <span>{{benchPredictions.createdTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.ignored">Ignored</span></dt>
+        <dd>
+            <span>{{benchPredictions.ignored}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.ignoredDays">Ignored Days</span></dt>
+        <dd>
+            <span>{{benchPredictions.ignoredDays}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.readyToBench">Ready To Bench</span></dt>
+        <dd>
+            <span>{{benchPredictions.readyToBench}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.readyToProduction">Ready To Production</span></dt>
+        <dd>
+            <span>{{benchPredictions.readyToProduction}}</span>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.details">Details</span></dt>
+        <dd>
+            <div *ngIf="benchPredictions.details">
+                <a [routerLink]="['/prediction-details', benchPredictions.details?.id]">{{benchPredictions.details?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="benchAdminConsoleApp.benchPredictions.employee">Employee</span></dt>
+        <dd>
+            <div *ngIf="benchPredictions.employee">
+                <a [routerLink]="['/employee', benchPredictions.employee?.id]">{{benchPredictions.employee?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'bench-predictions/'+ benchPredictions.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
