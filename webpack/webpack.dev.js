@@ -26,13 +26,13 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 '/v2/api-docs',
                 '/h2-console'
             ],
-            target: 'http://127.0.0.1:8157',
+            target: 'http://127.0.0.1:8158',
             secure: false
         },{
             context: [
                 '/websocket'
             ],
-            target: 'ws://127.0.0.1:8157',
+            target: 'ws://127.0.0.1:8158',
             ws: true
         }]
     },

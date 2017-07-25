@@ -85,7 +85,7 @@ liquibase:
 #        keyAlias: benchAdminConsole
 # ===================================================================
 server:
-    port: 8157
+    port: 8159
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json

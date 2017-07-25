@@ -85,7 +85,7 @@ To ensure everything worked, run:
 
     java -jar build/libs/*.war
 
-Then navigate to [http://localhost:8157](http://localhost:8157) in your browser.
+Then navigate to [http://localhost:8159](http://localhost:8159) in your browser.
 
 Refer to [Using JHipster in production][] for more details.
 
